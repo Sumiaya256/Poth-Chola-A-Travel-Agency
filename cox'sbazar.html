@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Book Trip – Cox’s Bazar</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f8ff;
+    }
+
+    header {
+      background-color: #25cde7;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .content {
+      max-width: 800px;
+      margin: 30px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 10px;
+    }
+
+    img {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    input, select {
+      padding: 10px;
+      font-size: 1rem;
+    }
+
+    button {
+      padding: 12px;
+      background-color: #25cde7;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+
+    button:hover {
+      background-color: #29abdb;
+    }
+
+    .result {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #d0f0c0;
+      border-left: 6px solid #2e7d32;
+      border-radius: 5px;
+      font-weight: bold;
+      display: none;
+    }
+
+    .result.success {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Welcome to Cox’s Bazar</h1>
+  </header>
+
+  <div class="content">
+    <img src="Cox'sbazar.jpg" alt="Cox’s Bazar" />
+    <p>Cox’s Bazar is the world's longest natural sea beach, stretching over 120 km. It is one of the most visited destinations in Bangladesh, offering relaxing beaches, seafood, local culture, and scenic views.</p>
+    
+    <h2> Book Your Ticket</h2>
+    <form id="bookingForm">
+      <label for="name">Full Name:</label>
+      <input type="text" id="name" name="name" required />
+
+      <label for="phone">Phone Number:</label>
+      <input type="tel" id="phone" name="phone" pattern="[0-9]{11}" placeholder="e.g. 017xxxxxxxx" required />
+
+      <label for="email">Email Address:</label>
+      <input type="email" id="email" name="email" required />
+
+      <label for="seats">Number of Seats:</label>
+      <input type="number" id="seats" name="seats" min="1" required />
+
+      <label for="class">Select Travel Class:</label>
+      <select id="class" name="class" required>
+        <option value="basic">Basic (৳800 per seat)</option>
+        <option value="standard">Standard (৳1200 per seat)</option>
+        <option value="premium">Premium (৳1800 per seat)</option>
+      </select>
+
+      <button type="submit">Book Now</button>
+    </form>
+
+    <div class="result" id="priceResult"></div>
+  </div>
+
+  <script>
+    document.getElementById('bookingForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const seats = parseInt(document.getElementById('seats').value);
+      const travelClass = document.getElementById('class').value;
+
+      let pricePerSeat = 0;
+
+      if (travelClass === 'basic') pricePerSeat = 800;
+      else if (travelClass === 'standard') pricePerSeat = 1200;
+      else if (travelClass === 'premium') pricePerSeat = 1800;
+
+      const total = seats * pricePerSeat;
+
+      const resultBox = document.getElementById('priceResult');
+      resultBox.classList.add('success');
+      resultBox.innerHTML = `
+         Total Price: ৳${total}<br><br>
+         <strong>Congratulations, ${name}!</strong><br>
+        Your ticket for <strong>${seats}</strong> seat(s) in <strong>${travelClass.toUpperCase()}</strong> class has been successfully booked.<br>
+        Contact: ${phone}<br>
+        Email: ${email}
+      `;
+    });
+  </script>
+
+</body>
+</html>
