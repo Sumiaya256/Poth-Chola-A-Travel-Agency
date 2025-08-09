@@ -9,35 +9,42 @@
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
-      background-color: #f0f8ff;
+      background-color: #ffffff;;
     }
 
     header {
-      background-color: #25cde7;
-      color: white;
+      background-color: #23bfd6;
+      color: #ffffff;
       padding: 20px;
       text-align: center;
     }
 
     .content {
-      max-width: 800px;
+      max-width: 1000px;
       margin: 30px auto;
       padding: 20px;
-      background-color: #fff;
-      border-radius: 10px;
+      background-color: #ffffff;
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap; /* makes it responsive */
+    }
+
+    .left, .right {
+      flex: 1;
+      min-width: 300px; /* so it stacks on small screens */
     }
 
     img {
       width: 100%;
-      border-radius: 10px;
-      margin-bottom: 20px;
+     
+     
     }
 
     form {
       display: flex;
       flex-direction: column;
       gap: 15px;
-      margin-top: 20px;
+      margin-top: 10px;
     }
 
     label {
@@ -85,34 +92,44 @@
   </header>
 
   <div class="content">
-    <img src="Cox'sbazar.jpg" alt="Cox’s Bazar" />
-    <p>Cox’s Bazar is the world's longest natural sea beach, stretching over 120 km. It is one of the most visited destinations in Bangladesh, offering relaxing beaches, seafood, local culture, and scenic views.</p>
+   
+    <div class="left">
+      <img src="Cox'sbazar.jpg"  alt="Cox’s Bazar" />
+      <p>Cox’s Bazar is the world's longest natural sea beach, stretching over 120 km.
+         It is one of the most visited destinations in Bangladesh, offering relaxing beaches, seafood, local culture, and scenic views.
+         
+         Confirm your booking now!!
+        </p>
+    </div>
+
     
-    <h2> Book Your Ticket</h2>
-    <form id="bookingForm">
-      <label for="name">Full Name:</label>
-      <input type="text" id="name" name="name" required />
+    <div class="right">
+      <h2> Book Your Ticket</h2>
+      <form id="bookingForm">
+        <label for="name">Full Name:</label>
+        <input type="text" id="name" name="name" required />
 
-      <label for="phone">Phone Number:</label>
-      <input type="tel" id="phone" name="phone" pattern="[0-9]{11}" placeholder="e.g. 017xxxxxxxx" required />
+        <label for="phone">Phone Number:</label>
+        <input type="tel" id="phone" name="phone" pattern="[0-9]{11}" placeholder="e.g. 017xxxxxxxx" required />
 
-      <label for="email">Email Address:</label>
-      <input type="email" id="email" name="email" required />
+        <label for="email">Email Address:</label>
+        <input type="email" id="email" name="email" required />
 
-      <label for="seats">Number of Seats:</label>
-      <input type="number" id="seats" name="seats" min="1" required />
+        <label for="seats">Number of Seats:</label>
+        <input type="number" id="seats" name="seats" min="1" required />
 
-      <label for="class">Select Travel Class:</label>
-      <select id="class" name="class" required>
-        <option value="basic">Basic (৳800 per seat)</option>
-        <option value="standard">Standard (৳1200 per seat)</option>
-        <option value="premium">Premium (৳1800 per seat)</option>
-      </select>
+        <label for="class">Select Travel Class:</label>
+        <select id="class" name="class" required>
+          <option value="basic">Basic (৳800 per seat)</option>
+          <option value="standard">Standard (৳1200 per seat)</option>
+          <option value="premium">Premium (৳1800 per seat)</option>
+        </select>
 
-      <button type="submit">Book Now</button>
-    </form>
+        <button type="submit">Book Now</button>
+      </form>
 
-    <div class="result" id="priceResult"></div>
+      <div class="result" id="priceResult"></div>
+    </div>
   </div>
 
   <script>
