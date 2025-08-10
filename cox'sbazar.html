@@ -3,41 +3,66 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Book Trip – Cox’s Bazar</title>
+  <title>Book Trip At – Cox'sBazar</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Segoe UI', Arial, sans-serif;
       margin: 0;
       padding: 0;
-      background-color: #ffffff;;
+      background: linear-gradient(135deg, #d4f3ff, #ffffff);
+      color: #333;
     }
 
     header {
-      background-color: #23bfd6;
+      background: linear-gradient(to right, #23bfd6, #1a98b8);
       color: #ffffff;
-      padding: 20px;
+      padding: 25px;
       text-align: center;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.2rem;
+      letter-spacing: 1px;
     }
 
     .content {
-      max-width: 1000px;
-      margin: 30px auto;
+      max-width: 1100px;
+      margin: 40px auto;
       padding: 20px;
-      background-color: #ffffff;
       display: flex;
       gap: 30px;
-      flex-wrap: wrap; 
+      flex-wrap: wrap;
     }
 
     .left, .right {
       flex: 1;
-      min-width: 300px;
+      min-width: 320px; 
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      padding: 20px;
     }
 
     img {
       width: 100%;
-     
-     
+      border-radius: 12px;
+      object-fit: cover;
+      margin-bottom: 15px;
+    }
+
+    .left p {
+      font-size: 1.05rem;
+      line-height: 1.5;
+    }
+
+    h2 {
+      color: #23bfd6;
+      margin-top: 0;
+      font-size: 1.5rem;
+      border-bottom: 2px solid #e0f4f7;
+      padding-bottom: 5px;
     }
 
     form {
@@ -49,25 +74,38 @@
 
     label {
       font-weight: bold;
+      color: #555;
     }
 
     input, select {
-      padding: 10px;
+      padding: 12px;
       font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      outline: none;
+      transition: 0.2s;
+    }
+
+    input:focus, select:focus {
+      border-color: #23bfd6;
+      box-shadow: 0 0 5px rgba(35, 191, 214, 0.5);
     }
 
     button {
       padding: 12px;
-      background-color: #25cde7;
+      background: linear-gradient(to right, #25cde7, #1a98b8);
       color: white;
       border: none;
       cursor: pointer;
-      border-radius: 5px;
-      font-size: 1rem;
+      border-radius: 6px;
+      font-size: 1.05rem;
+      font-weight: bold;
+      transition: 0.3s;
     }
 
     button:hover {
-      background-color: #29abdb;
+      background: linear-gradient(to right, #1a98b8, #25cde7);
+      transform: translateY(-2px);
     }
 
     .result {
@@ -82,29 +120,30 @@
 
     .result.success {
       display: block;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
 
   <header>
-    <h1>Welcome to Cox’s Bazar</h1>
+    <h1>Welcome to Sylhet</h1>
   </header>
 
   <div class="content">
    
     <div class="left">
-      <img src="Cox'sbazar.jpg"  alt="Cox’s Bazar" />
-      <p>Cox’s Bazar is the world's longest natural sea beach, stretching over 120 km.
-         It is one of the most visited destinations in Bangladesh, offering relaxing beaches, seafood, local culture, and scenic views.
-         
-         Confirm your booking now!!
-        </p>
+      <img src="Cox'sbazar.jpg" alt="Cox’s Bazar" />
+      <p>Get instant confirmation and enjoy the serene beauty of Cox'sBazar. Book your holiday now for an unforgettable experience!</p>
     </div>
 
-    
     <div class="right">
-      <h2> Book Your Ticket</h2>
+      <h2>Book Your Ticket</h2>
       <form id="bookingForm">
         <label for="name">Full Name:</label>
         <input type="text" id="name" name="name" required />
@@ -120,9 +159,9 @@
 
         <label for="class">Select Travel Class:</label>
         <select id="class" name="class" required>
-          <option value="basic">Basic (৳800 per seat)</option>
-          <option value="standard">Standard (৳1200 per seat)</option>
-          <option value="premium">Premium (৳1800 per seat)</option>
+          <option value="basic">Basic (৳2300 per seat)</option>
+          <option value="standard">Standard (৳2600 per seat)</option>
+          <option value="premium">Premium (৳3000 per seat)</option>
         </select>
 
         <button type="submit">Book Now</button>
@@ -143,24 +182,24 @@
       const travelClass = document.getElementById('class').value;
 
       let pricePerSeat = 0;
-
-      if (travelClass === 'basic') pricePerSeat = 800;
-      else if (travelClass === 'standard') pricePerSeat = 1200;
-      else if (travelClass === 'premium') pricePerSeat = 1800;
+      if (travelClass === 'basic') pricePerSeat = 2300;
+      else if (travelClass === 'standard') pricePerSeat = 2600;
+      else if (travelClass === 'premium') pricePerSeat = 3000;
 
       const total = seats * pricePerSeat;
 
       const resultBox = document.getElementById('priceResult');
       resultBox.classList.add('success');
       resultBox.innerHTML = `
-         Total Price: ৳${total}<br><br>
-         <strong>Congratulations, ${name}!</strong><br>
-        Your ticket for <strong>${seats}</strong> seat(s) in <strong>${travelClass.toUpperCase()}</strong> class has been successfully booked.<br>
-        Contact: ${phone}<br>
-        Email: ${email}
+          <strong>Total Price:</strong> ৳${total}<br><br>
+          <strong>Congratulations, ${name}!</strong><br>
+         Your ticket for <strong>${seats}</strong> seat(s) in <strong>${travelClass.toUpperCase()}</strong> class has been successfully booked.<br>
+          Contact: ${phone}<br>
+          Email: ${email}
       `;
     });
   </script>
 
 </body>
 </html>
+
