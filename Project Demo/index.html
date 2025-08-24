@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- Navigation Bar -->
+ 
   <header>
     <div class="logo">Explore Bangladesh</div>
     <nav>
@@ -19,18 +19,14 @@
         <li><a href="#">FAQs</a></li>
       </ul>
     </nav>
-    <!-- Auth buttons (shown when NOT logged in) -->
+    
 <div class="auth-buttons">
-  <!-- BEFORE -->
-  <!-- <a href="user.html" class="btn">Sign In</a>
-       <a href="user.html" class="btn signup">Sign Up</a> -->
-
-  <!-- AFTER (same classes → same look) -->
+  
   <a id="navSignIn" href="user.html?mode=signin" class="btn">Sign In</a>
   <a id="navSignUp"  href="user.html?mode=signup" class="btn signup">Sign Up</a>
 </div>
 
-<!-- Account buttons (shown when logged in) -->
+
 <div id="accountSection" style="display:none;">
   <a href="userProfile.html" id="profileBtn" class="btn">Profile</a>
   <a href="revieww.html" id="reviewsLink" class="btn">Reviews</a>
@@ -42,12 +38,12 @@
     </div>
   </header>
 
-  <!-- Web App Title -->
+  
   <section class="title-section">
     <h1>pothChola <span>– your ultimate Travel Solution</span></h1>
   </section>
 
-<!-- Hero Section with Manual Slider -->
+
 <section class="hero-slider">
   <div class="slider-container">
     <button class="nav left" onclick="moveSlide(-1)">&#10094;</button>
@@ -69,7 +65,7 @@
 </section>
 
 
-  <!-- Footer -->
+  
   <footer>
     <p>© 2025 Explore Bangladesh. All rights reserved.</p>
   </footer>
@@ -94,11 +90,11 @@
     showSlide(currentSlide);
   }
 
-  // Initial display
+ 
   showSlide(currentSlide);
 </script>
 <script>
-  // Read current user from localStorage (same key your user system uses)
+  
   function getCurrentUser() {
     try { return JSON.parse(localStorage.getItem("currentUser")); } catch { return null; }
   }
@@ -109,10 +105,10 @@
 
     const u = getCurrentUser();
     if (u && u.fullName) {
-      // pass the name so revieww.js can prefill it
+      
       link.href = "revieww.html?name=" + encodeURIComponent(u.fullName);
     } else {
-      // not logged in — open plain page
+     
       link.href = "revieww.html";
     }
   })();
@@ -132,16 +128,16 @@
     function renderHeader() {
       const u = getCurrentUser();
 
-      // Always keep the center "Reviews" menu working
+   
       if (reviewsNav) {
         reviewsNav.href = u && u.fullName
           ? 'revieww.html?name=' + encodeURIComponent(u.fullName)
           : 'revieww.html';
       }
 
-      // Reuse the SAME two buttons (keeps design identical)
+      
       if (u && u.fullName) {
-        // Logged in → show Profile + Reviews on the right
+       
         if (signInA) {
           signInA.textContent = 'Profile';
           signInA.href = 'userProfile.html';
@@ -149,10 +145,10 @@
         if (signUpA) {
           signUpA.textContent = 'Reviews';
           signUpA.href = 'revieww.html?name=' + encodeURIComponent(u.fullName);
-          // keep class="btn signup" so it still looks like your white button
+         
         }
       } else {
-        // Logged out → restore original Sign In / Sign Up
+       
         if (signInA) {
           signInA.textContent = 'Sign In';
           signInA.href = 'user.html?mode=signin';
@@ -165,7 +161,7 @@
     }
 
     renderHeader();
-    // If login state changes in another tab
+    
     window.addEventListener('storage', (e) => { if (e.key === 'currentUser') renderHeader(); });
   })();
 </script>
@@ -174,3 +170,4 @@
 
 </body>
 </html>
+
