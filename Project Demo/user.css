@@ -1,4 +1,4 @@
-/* General Blue Theme */
+
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -7,7 +7,7 @@ body {
   color: #223;
 }
 
-/* Top Message */
+
 .top-message {
   background: #003580;
   color: white;
@@ -16,14 +16,14 @@ body {
   font-weight: bold;
 }
 
-/* Title */
+
 .app-title {
   text-align: center;
   margin: 18px 0 12px;
   color: #0b3d91;
 }
 
-/* Logged-in status box */
+
 .status-box {
   max-width: 720px;
   margin: 0 auto 16px;
@@ -39,7 +39,7 @@ body {
 #greetName { font-size: 18px; }
 #greetEmail { margin: 6px 0 0; color: #4a4a4a; }
 
-/* Forms */
+
 .form-section {
   max-width: 720px;
   margin: 14px auto;
@@ -88,7 +88,7 @@ button:hover {
   background: #084fa6;
 }
 
-/* Recover trigger below login */
+
 .recover-trigger {
   display: flex;
   justify-content: flex-start;
@@ -103,7 +103,7 @@ button:hover {
   background: #e1edff;
 }
 
-/* Swap links */
+
 .swap {
   margin-top: 10px;
   font-size: 14px;
@@ -114,7 +114,7 @@ button:hover {
   font-weight: 700;
 }
 
-/* Logout */
+
 #logoutBtn {
   padding: 10px 16px;
   background: #c62828;
@@ -124,4 +124,5 @@ button:hover {
   cursor: pointer;
 }
 #logoutBtn:hover { background: #a31818; }
+
 
