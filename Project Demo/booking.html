@@ -68,7 +68,7 @@
       const people = parseInt(peopleInput.value);
       const totalCost = data.baseTotal * people;
 
-      // Update the pending booking with the final number of people and total cost
+      
       const updatedBookingData = {
           ...data,
           people: people,
@@ -77,9 +77,10 @@
 
       localStorage.setItem("pendingBooking", JSON.stringify(updatedBookingData));
 
-      // Redirect to the payment page
+      
       window.location.href = "payment.html";
     });
   </script>
 </body>
+
 </html>
