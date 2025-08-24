@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Payment - Pothchola</title>
+  <link rel="stylesheet" href="payment.css">
+</head>
+<body>
+  <div class="payment-container">
+    <div class="booking-summary">
+      <h2>Booking Summary</h2>
+      <div id="summary-details">
+        <p><strong>Package:</strong> <span id="summary-package-name"></span></p>
+        <p><strong>Location:</strong> <span id="summary-location"></span></p>
+        <p><strong>Room Type:</strong> <span id="summary-room-type"></span></p>
+        <p><strong>Number of People:</strong> <span id="summary-people"></span></p>
+      </div>
+      <div class="total-amount">
+        Total: <span id="summary-total-cost"></span> Tk
+      </div>
+    </div>
+
+    <div class="payment-form">
+      <h2>Payment Details</h2>
+      <form id="card-payment-form">
+        <div class="form-group">
+          <label for="cardholder-name">Cardholder Name</label>
+          <input type="text" id="cardholder-name" placeholder="Full Name" required>
+        </div>
+        <div class="form-group">
+          <label for="card-number">Card Number</label>
+          <input type="text" id="card-number" placeholder="XXXX XXXX XXXX XXXX" required>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="expiry-date">Expiry Date</label>
+            <input type="text" id="expiry-date" placeholder="MM/YY" required>
+          </div>
+          <div class="form-group">
+            <label for="cvv">CVV</label>
+            <input type="text" id="cvv" placeholder="XXX" required>
+          </div>
+        </div>
+        <button type="submit" class="pay-btn">Pay Now</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="payment.js"></script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Booking - Pothchola</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; background: #f5f5f5; }
+    .booking-card {
+      background: #fff; padding: 20px; max-width: 500px;
+      margin: auto; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 { margin-bottom: 10px; }
+    .cost { font-size: 18px; font-weight: bold; margin-top: 10px; }
+    input[type="number"] {
+      width: 80px; padding: 8px; margin-top: 5px;
+    }
+    .btn {
+      display: inline-block; background: #28a745; color: #fff; padding: 10px 15px;
+      text-decoration: none; border-radius: 5px; margin-top: 15px; cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="booking-card">
+    <h2 id="package-title">Loading...</h2>
+    <p id="package-details"></p>
+
+    <label for="people">Number of People:</label><br>
+    <input type="number" id="people" min="1" value="1"><br>
+
+    <div class="cost" id="totalCost">Total: —</div>
+
+    <button id="confirmBooking" class="btn">Proceed to Payment</button>
+  </div>
+
+  <script>
+    const data = JSON.parse(localStorage.getItem("pendingBooking") || "{}");
+    const titleEl = document.getElementById("package-title");
+    const detailsEl = document.getElementById("package-details");
+    const peopleInput = document.getElementById("people");
+    const totalCostEl = document.getElementById("totalCost");
+
+    if (!data.packageID) {
+      titleEl.textContent = "No package selected!";
+    } else {
+      titleEl.textContent = `${data.location} - ${data.packageName}`;
+      detailsEl.textContent = `Base Price: ${data.baseTotal} Tk (includes transport, room, meals)`;
+      updateTotal();
+    }
+
+    function updateTotal() {
+      const people = parseInt(peopleInput.value) || 1;
+      const total = data.baseTotal * people;
+      totalCostEl.textContent = `Total: ${total} Tk`;
+    }
+
+    peopleInput.addEventListener("input", updateTotal);
+
+    document.getElementById("confirmBooking").addEventListener("click", () => {
+      const user = JSON.parse(localStorage.getItem("currentUser") || "null");
+      if (!user || !user.email) {
+        alert("You need to sign in before booking.");
+        window.location.href = "user.html?mode=signin";
+        return;
+      }
+      
+      const people = parseInt(peopleInput.value);
+      const totalCost = data.baseTotal * people;
+
+      // Update the pending booking with the final number of people and total cost
+      const updatedBookingData = {
+          ...data,
+          people: people,
+          totalCost: totalCost
+      };
+
+      localStorage.setItem("pendingBooking", JSON.stringify(updatedBookingData));
+
+      // Redirect to the payment page
+      window.location.href = "payment.html";
+    });
+  </script>
+</body>
+</html>

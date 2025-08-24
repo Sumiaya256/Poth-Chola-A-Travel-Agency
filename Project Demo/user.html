@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User System - pothChola</title>
+  <link rel="stylesheet" href="user.css" />
+</head>
+<body>
+  <!-- Message Area -->
+  <div id="topMessage" class="top-message">Welcome to pothChola</div>
+
+  <h1 class="app-title">pothChola – User System</h1>
+
+  <!-- Greeting + Logout (only when logged in) -->
+  <div id="userGreeting" class="status-box" style="display:none;">
+    <div>
+      <strong id="greetName">Hello!</strong>
+      <p id="greetEmail"></p>
+    </div>
+    <button id="logoutBtn">Log Out</button>
+  </div>
+
+  <!-- SIGN UP -->
+  <section class="form-section" id="signupSection">
+    <h2>Create your account</h2>
+    <form id="signupForm" autocomplete="off">
+      <input type="text" id="fullName" placeholder="Full Name" required />
+      <input type="email" id="email" placeholder="Email" required />
+      <input type="tel" id="mobileNumber" placeholder="Mobile Number" required />
+      <input type="text" id="nationality" placeholder="Nationality (optional)" />
+      <input type="password" id="password" placeholder="Password" required />
+      <button type="submit">Sign Up</button>
+    </form>
+    <div class="swap">
+      Already have an account?
+      <a href="user.html?mode=signin">Sign In</a>
+    </div>
+  </section>
+
+  <!-- LOGIN -->
+  <section class="form-section" id="loginSection">
+    <h2>Welcome back</h2>
+    <form id="loginForm" autocomplete="off">
+      <input type="email" id="loginEmail" placeholder="Email" required />
+      <input type="password" id="loginPassword" placeholder="Password" required />
+      <button type="submit">Sign In</button>
+    </form>
+
+    <!-- Recover trigger -->
+    <div class="recover-trigger">
+      <button id="recoverBtn" type="button">Do you want to recover your password?</button>
+    </div>
+
+    <div class="swap">
+      New here?
+      <a href="user.html?mode=signup">Create an account</a>
+    </div>
+  </section>
+
+  <!-- RECOVER PASSWORD -->
+  <section class="form-section" id="recoverSection" style="display:none;">
+    <h2>Recover Password</h2>
+    <form id="recoverForm" autocomplete="off">
+      <input type="email" id="recoverEmail" placeholder="Your Email" required />
+      <input type="password" id="newPassword" placeholder="New Password" required />
+      <input type="password" id="confirmPassword" placeholder="Confirm New Password" required />
+      <button type="submit">Update Password</button>
+    </form>
+    <div class="swap">
+      Remembered it?
+      <a href="user.html?mode=signin">Back to Sign In</a>
+    </div>
+  </section>
+
+  <script src="user.js"></script>
+</body>
+</html>
+
+
+

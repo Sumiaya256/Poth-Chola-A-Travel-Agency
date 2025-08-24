@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pothChola - Travel App</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <header>
+    <div class="logo">Explore Bangladesh</div>
+    <nav>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="travelPackages.html">Packages</a></li>
+        <li><a id="reviewsLink" href="revieww.html" class="btn">Reviews</a></li>
+        <li><a href="#">FAQs</a></li>
+      </ul>
+    </nav>
+    <!-- Auth buttons (shown when NOT logged in) -->
+<div class="auth-buttons">
+  <!-- BEFORE -->
+  <!-- <a href="user.html" class="btn">Sign In</a>
+       <a href="user.html" class="btn signup">Sign Up</a> -->
+
+  <!-- AFTER (same classes → same look) -->
+  <a id="navSignIn" href="user.html?mode=signin" class="btn">Sign In</a>
+  <a id="navSignUp"  href="user.html?mode=signup" class="btn signup">Sign Up</a>
+</div>
+
+<!-- Account buttons (shown when logged in) -->
+<div id="accountSection" style="display:none;">
+  <a href="userProfile.html" id="profileBtn" class="btn">Profile</a>
+  <a href="revieww.html" id="reviewsLink" class="btn">Reviews</a>
+  <button id="logoutBtnHome" class="btn logout">Log Out</button>
+</div>
+
+
+
+    </div>
+  </header>
+
+  <!-- Web App Title -->
+  <section class="title-section">
+    <h1>pothChola <span>– your ultimate Travel Solution</span></h1>
+  </section>
+
+<!-- Hero Section with Manual Slider -->
+<section class="hero-slider">
+  <div class="slider-container">
+    <button class="nav left" onclick="moveSlide(-1)">&#10094;</button>
+
+    <div class="slider">
+      <img class="slide active" src="images/coxsbazar.jpg" alt="Cox’s Bazar">
+      <img class="slide" src="images/sylhet.JPG" alt="Sylhet Hills">
+      <img class="slide" src="images/sundarban.jpg" alt="Sundarban Forest">
+      <img class="slide" src="images/tanguar.jpg" alt="Tanguar Haor">
+    </div>
+
+    <button class="nav right" onclick="moveSlide(1)">&#10095;</button>
+  </div>
+
+  <div class="hero-text">
+    <h2>Discover the Beauty of Bangladesh</h2>
+    <p>Book your dream trip now – Adventure, Comfort & Nature</p>
+  </div>
+</section>
+
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Explore Bangladesh. All rights reserved.</p>
+  </footer>
+
+  <script>
+  let currentSlide = 0;
+  const slides = document.querySelectorAll(".slide");
+
+  function showSlide(index) {
+    slides.forEach((slide, i) => {
+      slide.classList.remove("active");
+      if (i === index) {
+        slide.classList.add("active");
+      }
+    });
+  }
+
+  function moveSlide(step) {
+    currentSlide += step;
+    if (currentSlide >= slides.length) currentSlide = 0;
+    if (currentSlide < 0) currentSlide = slides.length - 1;
+    showSlide(currentSlide);
+  }
+
+  // Initial display
+  showSlide(currentSlide);
+</script>
+<script>
+  // Read current user from localStorage (same key your user system uses)
+  function getCurrentUser() {
+    try { return JSON.parse(localStorage.getItem("currentUser")); } catch { return null; }
+  }
+
+  (function setupReviewsLink() {
+    const link = document.getElementById("reviewsLink");
+    if (!link) return; // no button found
+
+    const u = getCurrentUser();
+    if (u && u.fullName) {
+      // pass the name so revieww.js can prefill it
+      link.href = "revieww.html?name=" + encodeURIComponent(u.fullName);
+    } else {
+      // not logged in — open plain page
+      link.href = "revieww.html";
+    }
+  })();
+</script>
+
+
+<script>
+  (function () {
+    function getCurrentUser() {
+      try { return JSON.parse(localStorage.getItem('currentUser')); } catch { return null; }
+    }
+
+    const signInA = document.getElementById('navSignIn');
+    const signUpA = document.getElementById('navSignUp');
+    const reviewsNav = document.getElementById('reviewsNav');
+
+    function renderHeader() {
+      const u = getCurrentUser();
+
+      // Always keep the center "Reviews" menu working
+      if (reviewsNav) {
+        reviewsNav.href = u && u.fullName
+          ? 'revieww.html?name=' + encodeURIComponent(u.fullName)
+          : 'revieww.html';
+      }
+
+      // Reuse the SAME two buttons (keeps design identical)
+      if (u && u.fullName) {
+        // Logged in → show Profile + Reviews on the right
+        if (signInA) {
+          signInA.textContent = 'Profile';
+          signInA.href = 'userProfile.html';
+        }
+        if (signUpA) {
+          signUpA.textContent = 'Reviews';
+          signUpA.href = 'revieww.html?name=' + encodeURIComponent(u.fullName);
+          // keep class="btn signup" so it still looks like your white button
+        }
+      } else {
+        // Logged out → restore original Sign In / Sign Up
+        if (signInA) {
+          signInA.textContent = 'Sign In';
+          signInA.href = 'user.html?mode=signin';
+        }
+        if (signUpA) {
+          signUpA.textContent = 'Sign Up';
+          signUpA.href = 'user.html?mode=signup';
+        }
+      }
+    }
+
+    renderHeader();
+    // If login state changes in another tab
+    window.addEventListener('storage', (e) => { if (e.key === 'currentUser') renderHeader(); });
+  })();
+</script>
+
+
+
+</body>
+</html>

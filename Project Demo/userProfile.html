@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>User Profile – Pothchola</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="userProfile.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a href="index.html" class="brand">Pothchola</a>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="travelPackages.html">Packages</a>
+      <button id="logoutBtn" class="btn danger">Log Out</button>
+    </nav>
+  </header>
+
+  <main class="container">
+    <div id="guardMessage" class="guard" style="display:none;"></div>
+
+    <!-- Profile -->
+    <section class="card">
+      <h2>Profile</h2>
+      <form id="profileForm" autocomplete="off" class="grid">
+        <div class="field">
+          <label for="pfName">Full Name</label>
+          <input id="pfName" type="text" required />
+        </div>
+        <div class="field">
+          <label for="pfEmail">Email</label>
+          <input id="pfEmail" type="email" required />
+        </div>
+        <div class="field">
+          <label for="pfMobile">Mobile Number</label>
+          <input id="pfMobile" type="tel" required />
+        </div>
+        <div class="field">
+          <label for="pfNationality">Nationality</label>
+          <input id="pfNationality" type="text" />
+        </div>
+        <div class="actions">
+          <button type="submit" class="btn primary">Save Changes</button>
+          <span id="saveStatus" class="status"></span>
+        </div>
+      </form>
+    </section>
+
+    <!-- Bookings -->
+    <section class="card" id="bookingsCard">
+      <h2>Previously Booked Packages</h2>
+      <div id="bookingsList" class="list"></div>
+      <p id="noBookings" class="muted" style="display:none;">
+        No bookings yet. Go to <a href="travelPackages.html">Packages</a> to book.
+      </p>
+    </section>
+
+    <!-- My Reviews (read-only preview) -->
+    <section class="card" id="myReviewsCard">
+      <h2>My Reviews</h2>
+      <div id="myReviewsList" class="list"></div>
+      <p id="noMyReviews" class="muted" style="display:none;">You haven’t written any reviews yet.</p>
+
+      <div class="actions" style="margin-top:10px;">
+        <a id="openReviewsBtn" href="#" class="btn primary">Write / Manage Reviews</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Use your existing package definitions for mapping IDs to names/images -->
+  <script src="travelPackages.js"></script>
+  <script src="userProfile.js"></script>
+</body>
+</html>
+

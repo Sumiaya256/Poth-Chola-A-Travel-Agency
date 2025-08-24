@@ -1,0 +1,145 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f0f8ff;
+}
+
+header {
+    background-color: #007acc;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+header nav a {
+    color: white;
+    margin: 0 10px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+header nav a.active {
+    text-decoration: underline;
+}
+
+main {
+    padding: 20px;
+    max-width: 900px;
+    margin: auto;
+}
+
+.location-card {
+    margin-bottom: 50px;
+}
+
+.location-card h2 {
+    color: #007acc;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.location-card img {
+    width: 100%;
+    max-height: 350px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.package-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.package-tabs button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #e0f2ff;
+    color: #007acc;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.package-tabs button.active {
+    background-color: #007acc;
+    color: white;
+}
+
+.package-details {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 15px;
+    background-color: #fff;
+    box-shadow: 2px 2px 12px rgba(0,0,0,0.1);
+    font-size: 14px;
+}
+
+.package-details span {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.book-btn {
+    margin-top: 10px;
+    padding: 8px 15px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.book-btn:hover {
+    background-color: #218838;
+}
+
+.low-availability {
+    color: red;
+    font-weight: bold;
+}
+
+/* Room type & totals */
+.room-type {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+.room-type strong { margin-right: 4px; }
+.room-type label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  background: #eef7ff;
+  border: 1px solid #cfe0ff;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.room-type input[type="radio"] { accent-color: #007acc; }
+
+.total-cost {
+  margin-top: 10px;
+  font-weight: 700;
+  font-size: 1.02rem;
+}
+/* Tiny helper notes */
+.headline-note {
+  margin: 6px 0 0;
+  font-size: 12px;               /* tiny letters */
+  line-height: 1.2;
+  color: rgba(255, 255, 255, 0.85);  /* readable on blue header */
+}
+
+/* note under the room-type radios */
+.room-type-note {
+  margin-top: 6px;
+  font-size: 12px;               /* tiny letters */
+  color: #555;
+}
