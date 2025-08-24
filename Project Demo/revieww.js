@@ -1,7 +1,7 @@
 const reviewForm = document.getElementById('reviewForm');
 const reviewsList = document.getElementById('reviewsList');
 const avgRating = document.getElementById('avgRating');
-// Prefill name from URL (?name=Full%20Name) so profile page can pass the user name
+
 (function prefillNameFromURL(){
   const params = new URLSearchParams(window.location.search);
   const preName = params.get("name");
@@ -9,15 +9,13 @@ const avgRating = document.getElementById('avgRating');
     const nameInput = document.getElementById("userName");
     if (nameInput) {
       nameInput.value = preName;
-      // Optional: lock the field to avoid mismatches with profile name
-      // nameInput.readOnly = true;
-      // nameInput.style.background = "#f5f7ff";
+      
     }
   }
 })();
 
 
-// Load reviews from localStorage or fallback to sample ones
+
 let reviews = JSON.parse(localStorage.getItem('reviews')) || [
   { rating: 5, name: 'Sumiaya Sharif', text: 'Amazing place! Truly peaceful and scenic.', date: '2025-08-21 10:45 AM' },
   { rating: 4, name: 'Rahat Ahmed', text: 'Beautiful experience, but a bit crowded.', date: '2025-08-20 3:20 PM' },
@@ -63,7 +61,7 @@ reviewForm.addEventListener('submit', function(e) {
   const date = new Date().toLocaleString();
   reviews.push({ rating, name, text, date });
 
-  // Save to localStorage
+  
   localStorage.setItem('reviews', JSON.stringify(reviews));
 
   displayReviews();
@@ -73,3 +71,4 @@ reviewForm.addEventListener('submit', function(e) {
 
 displayReviews();
 updateAverageRating();
+
