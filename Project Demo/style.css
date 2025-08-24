@@ -1,4 +1,4 @@
-/* Web App Title Section */
+
 .title-section {
   background-color: #e0f0ff;
   text-align: center;
@@ -22,7 +22,7 @@
   text-transform: none;
   margin-top: 5px;
 }
-/* Reset + Base Styles */
+
 * {
   margin: 0;
   padding: 0;
@@ -34,7 +34,7 @@ body {
   background-color: #f4f4f4;
 }
 
-/* Header */
+
 header {
   display: flex;
   justify-content: space-between;
@@ -86,14 +86,14 @@ nav a:hover {
   color: #003580;
 }
 
-/* Hero Section */
+
 .hero {
   text-align: center;
   padding: 40px 20px;
   background-color: #ffffff;
 }
 
-/* Manual Slider Container */
+
 .hero-slider {
   background-color: #fff;
   padding: 20px 0;
@@ -125,7 +125,7 @@ nav a:hover {
   display: block;
 }
 
-/* Navigation Arrows */
+
 .nav {
   position: absolute;
   top: 50%;
@@ -153,7 +153,7 @@ nav a:hover {
   right: 10px;
 }
 
-/* Hero Text */
+
 .hero-text {
   margin-top: 30px;
 }
@@ -194,7 +194,7 @@ nav a:hover {
   color: #333;
 }
 
-/* Footer */
+
 footer {
   text-align: center;
   padding: 20px;
@@ -206,3 +206,4 @@ footer {
 #accountSection { align-items: center; gap: 10px; }
 .btn.logout { background: #a31818; color: #fff; }
 .btn.logout:hover { background: #a31818; }
+
