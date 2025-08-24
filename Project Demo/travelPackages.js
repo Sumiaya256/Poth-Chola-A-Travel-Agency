@@ -1,6 +1,4 @@
-// ===== Travel Packages with Room Type & Total Cost =====
 
-// Data model
 class TravelPackage {
   constructor(
     packageID,
@@ -9,7 +7,7 @@ class TravelPackage {
     image,
     description,
     transportCost,
-    accommodationCost, // Single room base
+    accommodationCost, 
     fullBoardCost,
     availability
   ) {
@@ -18,47 +16,45 @@ class TravelPackage {
     this.location = location;
     this.image = image;
     this.description = description;
-    this.transportCost = transportCost;         // Tk
-    this.accommodationCost = accommodationCost; // Tk (Single room base)
-    this.fullBoardCost = fullBoardCost;         // Tk
-    this.availability = availability;           // seats/slots
+    this.transportCost = transportCost;         
+    this.accommodationCost = accommodationCost; 
+    this.fullBoardCost = fullBoardCost;         
+    this.availability = availability;           
   }
 }
 
-// NOTE: Keep/adjust the image filenames to match your actual files.
+
 const travelPackages = [
-  // Cox's Bazar
+  
   new TravelPackage(1, "Basic",    "Cox's Bazar", "images/coxsbazar.jpg", "Budget beach trip",                 700, 1000, 1800, 10),
   new TravelPackage(2, "Standard", "Cox's Bazar", "images/coxsbazar.jpg", "Comfort beach hotel + activities", 900, 1600, 2000, 12),
   new TravelPackage(3, "Premium",  "Cox's Bazar", "images/coxsbazar.jpg", "Luxury beach resort experience",    1200, 2000, 2300, 10),
 
-  // Sylhet
+  
   new TravelPackage(4, "Basic",    "Sylhet", "images/sylhet.jpg", "Budget tea garden tour",         500, 800, 1300, 20),
   new TravelPackage(5, "Standard", "Sylhet", "images/sylhet.jpg", "Comfort tea garden experience",  700, 1000, 1500, 15),
   new TravelPackage(6, "Premium",  "Sylhet", "images/sylhet.jpg", "Luxury Sylhet resort stay",      900, 1200, 1700, 10),
 
-  // Bandarban (adjust filename if yours differs)
+  
   new TravelPackage(7, "Basic",    "Bandarban", "images/bandarbann.jpg", "Budget hill trip",   500, 800, 1200, 20),
   new TravelPackage(8, "Standard", "Bandarban", "images/bandarbann.jpg", "Comfort hill tour",  700, 1000, 1500, 15),
   new TravelPackage(9, "Premium",  "Bandarban", "images/bandarbann.jpg", "Luxury hill resort", 900, 1200, 1700, 18),
 
-  // Rangamati (adjust filename if yours differs)
+  
   new TravelPackage(10, "Basic",   "Rangamati", "images/rangamatii.jpg", "Budget lake tour",   300, 800, 900, 10),
   new TravelPackage(11, "Standard","Rangamati", "images/rangamatii.jpg", "Comfort lake stay",  400, 900, 1200, 15),
   new TravelPackage(12, "Premium", "Rangamati", "images/rangamatii.jpg", "Luxury lake resort", 500, 1100, 1400, 5),
 
-  // Tanguar Haor
+  
   new TravelPackage(13, "Basic",   "Tanguar Haor", "images/tanguar.jpg", "Budget haor boat tour",     700, 900, 1800, 18),
   new TravelPackage(14, "Standard","Tanguar Haor", "images/tanguar.jpg", "Comfort haor experience",   900, 1300, 2000, 12),
   new TravelPackage(15, "Premium", "Tanguar Haor", "images/tanguar.jpg", "Luxury haor cruise & stay", 1000, 1700, 2200, 7),
 ];
 
-// ---- Room price multipliers ----
-// Single = 1.0; Double = 1.5; Family = 2.25 (1.5× Double).
-// If you prefer Family to also be 1.5×, change family: 1.5.
+
 const ROOM_MULTIPLIERS = { single: 1.0, double: 1.5, family: 2 };
 
-// ---- LocalStorage helpers ----
+
 function getCurrentUser() {
   try { return JSON.parse(localStorage.getItem("currentUser")); } catch { return null; }
 }
@@ -69,7 +65,7 @@ function saveBookings(list) {
   localStorage.setItem("bookings", JSON.stringify(list));
 }
 
-// ---- Render ----
+
 const container = document.getElementById("locations-container");
 
 function groupByLocation(arr) {
@@ -118,7 +114,7 @@ function renderLocations() {
     card.appendChild(details);
     container.appendChild(card);
 
-    // Auto-open first package
+    
     const firstBtn = tabs.querySelector("button");
     if (firstBtn) firstBtn.click();
   });
@@ -181,7 +177,7 @@ function renderDetails(pkg, detailsContainer) {
   });
 }
 
-// ---- Booking (persists to localStorage and updates availability) ----
+
 function bookPackage(id, roomType = "single", totalCost = null) {
   const pkg = travelPackages.find(p => p.packageID === id);
   if (!pkg) return;
@@ -219,7 +215,7 @@ function bookPackage(id, roomType = "single", totalCost = null) {
   renderLocations();
 }
 
-// ---- Booking (persists to localStorage and updates availability) ----
+
 function bookPackage(id, roomType = "single", totalCost = null) {
   const pkg = travelPackages.find(p => p.packageID === id);
   if (!pkg) return;
@@ -232,7 +228,7 @@ function bookPackage(id, roomType = "single", totalCost = null) {
     return;
   }
 
-  // Save selected package temporarily in localStorage
+ 
   const bookingData = {
     packageID: pkg.packageID,
     location: pkg.location,
@@ -249,11 +245,12 @@ function bookPackage(id, roomType = "single", totalCost = null) {
 
   localStorage.setItem("pendingBooking", JSON.stringify(bookingData));
 
-  // Redirect to booking.html
+ 
   window.location.href = "booking.html";
 }
-// Initial render
+
 renderLocations();
+
 
 
 
