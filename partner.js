@@ -1,24 +1,24 @@
-// Partner Page – download-gated form
+
 (function () {
   const form = document.querySelector(".partner-form");
   if (!form) return;
 
-  // 🔗 Update to your downloadable file path if needed:
+
   const DOWNLOAD_URL = "partner-kit.pdf"; // e.g., /assets/partner-kit.pdf
 
-  // Fields from partner.html
+
   const nameBiz = document.getElementById("business-name");
   const nameContact = document.getElementById("contact-name");
   const email = document.getElementById("email");
   const type = document.getElementById("service-type");
 
-  // Success banner
+  
   const banner = document.createElement("div");
   banner.className = "success-banner";
   banner.textContent = "✅ Thanks! Your download should begin automatically.";
   form.parentElement.insertBefore(banner, form);
 
-  // Smooth anchor scroll (optional)
+ 
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener("click", e => {
       const id = a.getAttribute("href");
@@ -29,7 +29,7 @@
     });
   });
 
-  // Validation helpers
+  
   const isEmail = v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
   const required = el => (el.value || "").trim().length > 0;
   const fields = [nameBiz, nameContact, email, type];
@@ -46,12 +46,12 @@
 
   fields.forEach(el => el.addEventListener("input", validate));
 
-  // LocalStorage bucket
+  
   const LS_KEY = "pothchola_partner_apps";
   const loadApps = () => { try { return JSON.parse(localStorage.getItem(LS_KEY)) || []; } catch { return []; } };
   const saveApps = list => localStorage.setItem(LS_KEY, JSON.stringify(list));
 
-  // Disable/enable submit UX
+  
   const submitBtn = form.querySelector('button[type="submit"], .btn[type="submit"]') || form.querySelector(".btn");
   function setBusy(busy) {
     if (!submitBtn) return;
@@ -59,7 +59,7 @@
     submitBtn.dataset.loading = busy ? "1" : "0";
   }
 
-  // Trigger a file download safely
+
   function triggerDownload(url) {
     const a = document.createElement("a");
     a.href = url;
@@ -76,7 +76,7 @@
 
     setBusy(true);
 
-    // Save submission
+    
     const app = {
       id: Date.now(),
       businessName: nameBiz.value.trim(),
@@ -89,7 +89,7 @@
     list.push(app);
     saveApps(list);
 
-    // Clear form + show success
+ 
     form.reset();
     banner.style.display = "block";
 
