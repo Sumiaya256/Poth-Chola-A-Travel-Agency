@@ -6,11 +6,11 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
- 
+  // Confirmation message
   const msg = document.getElementById("confirmMessage");
   msg.textContent = `Your booking for ${booking.location} (${booking.packageName}) has been confirmed!`;
 
- 
+  // Booking details
   const details = document.getElementById("details");
   details.innerHTML = `
     <p><strong>Package:</strong> ${booking.packageName}</p>
