@@ -4,45 +4,89 @@
   <meta charset="UTF-8">
   <title>Payment - Pothchola</title>
   <link rel="stylesheet" href="payment.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
   <div class="payment-container">
     <div class="booking-summary">
-      <h2>Booking Summary</h2>
+      <h2>Your Booking Summary</h2>
       <div id="summary-details">
         <p><strong>Package:</strong> <span id="summary-package-name"></span></p>
         <p><strong>Location:</strong> <span id="summary-location"></span></p>
-        <p><strong>Room Type:</strong> <span id="summary-room-type"></span></p>
         <p><strong>Number of People:</strong> <span id="summary-people"></span></p>
+        <p><strong>Rooms:</strong> <span id="summary-room-type"></span></p>
       </div>
       <div class="total-amount">
-        Total: <span id="summary-total-cost"></span> Tk
+        Total Payable: <span id="summary-total-cost"></span> BDT
       </div>
     </div>
 
-    <div class="payment-form">
-      <h2>Payment Details</h2>
-      <form id="card-payment-form">
-        <div class="form-group">
-          <label for="cardholder-name">Cardholder Name</label>
-          <input type="text" id="cardholder-name" placeholder="Full Name" required>
-        </div>
-        <div class="form-group">
-          <label for="card-number">Card Number</label>
-          <input type="text" id="card-number" placeholder="XXXX XXXX XXXX XXXX" required>
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label for="expiry-date">Expiry Date</label>
-            <input type="text" id="expiry-date" placeholder="MM/YY" required>
+    <div class="payment-options">
+      <h2>Choose a Payment Method</h2>
+
+      <!-- Mobile Banking Options -->
+      <div class="payment-section">
+        <h3>Mobile Banking</h3>
+        <div class="payment-methods">
+                    <div class="method-card" data-method="bkash">
+            <img src="bkash_logo.png" alt="bKash" class="payment-logo">
+            <span>bKash</span>
           </div>
-          <div class="form-group">
-            <label for="cvv">CVV</label>
-            <input type="text" id="cvv" placeholder="XXX" required>
+          <div class="method-card" data-method="nagad">
+            <img src="nagad_logo.png" alt="Nagad" class="payment-logo">
+            <span>Nagad</span>
           </div>
+          <!-- Add more mobile banking if needed -->
         </div>
-        <button type="submit" class="pay-btn">Pay Now</button>
-      </form>
+        <div id="bkash-details" class="payment-details-form" style="display: none;">
+            <h4>Pay with bKash</h4>
+            <p>1. Dial *247# to open bKash Menu.</p>
+            <p>2. Select 'Payment'.</p>
+            <p>3. Enter Merchant bKash Account No: <strong>017XXXXXXXX</strong></p>
+            <p>4. Enter Amount: <strong id="bkash-amount"></strong> BDT</p>
+            <p>5. Enter Reference: <strong id="bkash-reference">Pothchola</strong></p>
+            <p>6. Enter Counter No: <strong>1</strong></p>
+            <p>7. Enter your bKash PIN to confirm.</p>
+            <div class="form-group">
+                <label for="bkash-trxid">bKash Transaction ID</label>
+                <input type="text" id="bkash-trxid" placeholder="e.g. 8A5B6C7D" required>
+            </div>
+            <button class="confirm-payment-btn" data-method="bkash">Confirm bKash Payment</button>
+        </div>
+        <div id="nagad-details" class="payment-details-form" style="display: none;">
+            <h4>Pay with Nagad</h4>
+            <p>1. Dial *167# to open Nagad Menu.</p>
+            <p>2. Select 'Payment'.</p>
+            <p>3. Enter Merchant Nagad Account No: <strong>019XXXXXXXX</strong></p>
+            <p>4. Enter Amount: <strong id="nagad-amount"></strong> BDT</p>
+            <p>5. Enter Reference: <strong id="nagad-reference">Pothchola</strong></p>
+            <p>6. Enter your Nagad PIN to confirm.</p>
+            <div class="form-group">
+                <label for="nagad-trxid">Nagad Transaction ID</label>
+                <input type="text" id="nagad-trxid" placeholder="e.g. 123ABC456" required>
+            </div>
+            <button class="confirm-payment-btn" data-method="nagad">Confirm Nagad Payment</button>
+        </div>
+      </div>
+
+      <!-- Online Banking Options -->
+      <div class="payment-section">
+        <h3>Online Banking</h3>
+        <div class="payment-methods">
+          <div class="method-card" data-method="bank-transfer">
+            <i class="fa-solid fa-building-columns payment-icon"></i>
+            <span>All Banks</span>
+          </div>
+          
+        </div>
+        <div id="bank-transfer-details" class="payment-details-form" style="display: none;">
+            <h4>Pay via Online Banking</h4>
+            <p>You will be redirected to the secure payment gateway to complete your payment.</p>
+            <p>Please select your preferred bank from the list on the next page.</p>
+            <button class="confirm-payment-btn" data-method="bank-transfer">Proceed to Bank Gateway</button>
+        </div>
+      </div>
+
     </div>
   </div>
 
