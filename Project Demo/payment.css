@@ -1,62 +1,168 @@
+/* payment.css */
+
 body {
-  font-family: 'Segoe UI', sans-serif;
-  background: #f0f6fc;
+  font-family: 'Arial', sans-serif;
+  background-color: #f0f2f5; /* Light grey background */
+  margin: 0;
+  padding: 20px;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start; /* Align to the top */
   min-height: 100vh;
-  margin: 0;
+  box-sizing: border-box;
 }
 
 .payment-container {
-  display: flex;
-  flex-wrap: wrap;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
   max-width: 800px;
   width: 100%;
-  background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-}
-
-.booking-summary {
-  background: #1c5dcd;
-  color: #fff;
   padding: 30px;
-  flex: 1;
-  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
 }
 
-.booking-summary h2 {
+h2, h3, h4 {
+  color: #2c3e50; /* Darker text for headings */
   margin-top: 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  margin-bottom: 15px;
+}
+
+h2 {
+  font-size: 1.8em;
+  border-bottom: 2px solid #e0e0e0;
   padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+h3 {
+    font-size: 1.4em;
+    color: #34495e;
+    margin-top: 25px;
+    margin-bottom: 15px;
+}
+
+h4 {
+    font-size: 1.2em;
+    color: #4a647d;
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+/* Booking Summary Section */
+.booking-summary {
+  background-color: #eef7ff; /* Light blue background for summary */
+  border: 1px solid #cce0ff;
+  border-radius: 8px;
+  padding: 20px;
 }
 
 #summary-details p {
-  margin: 10px 0;
+  margin: 8px 0;
+  color: #444;
+  line-height: 1.5;
 }
 
-#summary-details span {
-  font-weight: normal;
+#summary-details strong {
+  color: #0d47a1; /* Darker blue for strong text */
 }
 
 .total-amount {
-  margin-top: 20px;
-  font-size: 1.5rem;
+  font-size: 1.6em;
   font-weight: bold;
+  color: #0d47a1;
   text-align: right;
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px dashed #cce0ff;
 }
 
-.payment-form {
-  padding: 30px;
-  flex: 1.5;
-  min-width: 350px;
+/* Payment Options Section */
+.payment-options {
+  /* No specific styles needed here unless a border/background is desired */
 }
 
-.payment-form h2 {
-  color: #1c5dcd;
-  margin-top: 0;
+.payment-section {
+  margin-bottom: 30px;
+}
+
+.payment-methods {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.method-card {
+  background-color: #f8f8f8;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 15px 20px;
+  display: flex;
+  flex-direction: column; /* Stack logo and text */
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  min-width: 120px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.method-card:hover {
+  border-color: #0d47a1;
+  background-color: #f0f7ff;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transform: translateY(-2px);
+}
+
+.method-card.selected {
+  border-color: #0d47a1;
+  box-shadow: 0 0 0 3px rgba(13, 71, 161, 0.3);
+  background-color: #e6f0ff;
+}
+
+.payment-logo {
+  width: 60px; /* Adjust size as needed */
+  height: auto;
+  margin-bottom: 8px;
+  max-height: 40px; /* Ensure logos aren't too tall */
+  object-fit: contain;
+}
+
+.payment-icon {
+    font-size: 40px; /* Size for FontAwesome icons */
+    color: #34495e;
+    margin-bottom: 8px;
+}
+
+
+.method-card span {
+  font-weight: 600;
+  color: #333;
+  font-size: 0.95em;
+}
+
+/* Payment Details Forms (bKash, Nagad, Bank Transfer) */
+.payment-details-form {
+  background-color: #fdfdfd;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 20px;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.payment-details-form p {
+    margin-bottom: 8px;
+    font-size: 0.95em;
+    color: #555;
+}
+
+.payment-details-form strong {
+    color: #0d47a1;
+    font-weight: 700;
 }
 
 .form-group {
@@ -65,41 +171,80 @@ body {
 
 .form-group label {
   display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-  color: #555;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #333;
 }
 
-.form-group input {
-  width: 100%;
-  padding: 12px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  font-size: 1rem;
+.form-group input[type="text"] {
+  width: calc(100% - 20px);
+  padding: 12px 10px;
+  border: 1px solid #ccddee;
+  border-radius: 6px;
+  font-size: 1em;
+  color: #333;
+  transition: border-color 0.2s;
 }
 
-.form-row {
-  display: flex;
-  gap: 15px;
+.form-group input[type="text"]:focus {
+  border-color: #0d47a1;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(13, 71, 161, 0.15);
 }
 
-.form-row .form-group {
-  flex: 1;
-}
-
-.pay-btn {
-  width: 100%;
-  background: #28a745;
-  color: #fff;
+.confirm-payment-btn {
+  background-color: #0d47a1; /* Primary blue button */
+  color: #ffffff;
   border: none;
-  padding: 15px;
-  font-size: 1.1rem;
-  font-weight: bold;
   border-radius: 8px;
+  padding: 14px 25px;
+  font-size: 1.1em;
+  font-weight: 700;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  width: auto;
+  margin-top: 10px;
 }
 
-.pay-btn:hover {
-  background: #218838;
+.confirm-payment-btn:hover {
+  background-color: #1a56b4; /* Darker blue on hover */
+  transform: translateY(-1px);
+}
+
+.confirm-payment-btn:active {
+  transform: translateY(0);
+}
+
+.confirm-payment-btn:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .payment-container {
+    padding: 20px;
+  }
+  h2 {
+    font-size: 1.6em;
+  }
+  h3 {
+    font-size: 1.2em;
+  }
+  .payment-methods {
+    flex-direction: column; /* Stack cards vertically on small screens */
+    align-items: center;
+  }
+  .method-card {
+    width: 80%; /* Make cards wider */
+    padding: 10px 15px;
+  }
+  .total-amount {
+    font-size: 1.4em;
+  }
+  .confirm-payment-btn {
+    width: 100%;
+    font-size: 1em;
+    padding: 12px 20px;
+  }
 }
