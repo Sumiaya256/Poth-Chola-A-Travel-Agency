@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>FAQs – Pothchola</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .faq-hero { background:#e0f0ff; border-bottom:2px solid #003580; padding:28px 20px; text-align:center; }
+    .faq-hero h1 { color:#003580; margin-bottom:6px }
+    .faq-wrap { max-width:1000px; margin:20px auto; padding:0 16px; }
+    .faq-flex { display:grid; grid-template-columns:1fr 1fr; gap:16px }
+    @media (max-width:920px){ .faq-flex { grid-template-columns:1fr } }
+    .faq-card { background:#fff; border:1px solid #dbe7ff; border-radius:12px; padding:16px; box-shadow:0 4px 14px rgba(0,0,0,.06); }
+    .faq-card h2 { color:#0b3d91; margin-bottom:10px; font-size:20px }
+
+   
+    .ask-form { display:grid; gap:10px }
+    .ask-form input, .ask-form textarea {
+      padding:12px; border:1px solid #dbe7ff; border-radius:10px; outline:none; background:#fff;
+    }
+    .ask-form button {
+      padding:10px 12px; border:none; border-radius:10px; background:#0b63ce; color:#fff; font-weight:700; cursor:pointer;
+    }
+    .ask-form button:hover { background:#084fa6 }
+
+    /* Accordion list */
+    .qa-item { border:1px solid #dbe7ff; border-radius:10px; margin-bottom:10px; overflow:hidden; background:#fff }
+    .qa-q { width:100%; text-align:left; background:#eef6ff; color:#0b3d91; padding:10px 12px; border:0; cursor:pointer; font-weight:700 }
+    .qa-a { display:none; padding:10px 12px; color:#223; }
+    .qa-meta { font-size:12px; color:#6c7a92; margin-top:6px }
+    .empty { color:#6c7a92; }
+    
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  margin-left: 8px;
+}
+.badge.answered { background:#e8ffe8; color:#0d6a0d; border:1px solid #b7e1b7; }
+
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">Explore Bangladesh</div>
+    <nav>
+      <ul>
+        <li><a href="about.html">About</a></li>
+        <li><a href="travelPackages.html">Packages</a></li>
+        <li><a id="reviewsNav" href="revieww.html">Reviews</a></li>
+        <li><a href="faqs.html">FAQs</a></li>
+        <li id="adminNavItem" style="display:none;"><a href="admin.html">Admin</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="faq-hero">
+    <h1>FAQs & Ask a Question</h1>
+    <p>Browse common questions or ask us anything about Pothchola services.</p>
+  </section>
+
+  <main class="faq-wrap">
+    <div class="faq-flex">
+      <!-- Ask a question -->
+      <section class="faq-card">
+        <h2>Ask a Question</h2>
+        <form id="askForm" class="ask-form" autocomplete="off">
+          <input id="askName" type="text" placeholder="Your Name (optional)" />
+          <input id="askEmail" type="email" placeholder="Your Email (optional)" />
+          <textarea id="askText" rows="3" placeholder="Type your question..." required></textarea>
+          <button type="submit">Submit Question</button>
+          <div id="askStatus" class="qa-meta"></div>
+        </form>
+        <p class="qa-meta" style="margin-top:8px;">We’ll post an answer soon. Meanwhile, check the common questions on the right.</p>
+      </section>
+
+      <!-- Q/A list -->
+      <section class="faq-card">
+        <h2>Questions & Answers</h2>
+        <div id="qaList"></div>
+        <p id="emptyQAs" class="empty" style="display:none;">No questions yet. Be the first to ask!</p>
+      </section>
+    </div>
+  </main>
+
+  <script src="faqs.js"></script>
+  <script>
+   
+    (function(){
+      function cu(){ try{return JSON.parse(localStorage.getItem('currentUser'))}catch(e){return null} }
+      const a = document.getElementById('reviewsNav'); const u = cu();
+      if (a) a.href = u && u.fullName ? 'revieww.html?name='+encodeURIComponent(u.fullName) : 'revieww.html';
+    })();
+  </script>
+  <script>
+  (function(){
+    const ADMIN_EMAIL = "admin@pothchola.local"; 
+    try {
+      const u = JSON.parse(localStorage.getItem("currentUser"));
+      if (u && u.email && u.email.toLowerCase() === ADMIN_EMAIL.toLowerCase()) {
+        const li = document.getElementById("adminNavItem");
+        if (li) li.style.display = "list-item";
+      }
+    } catch(e) {}
+  })();
+</script>
+
+</body>
+</html>
