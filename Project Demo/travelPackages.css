@@ -103,7 +103,7 @@ main {
     font-weight: bold;
 }
 
-
+/* Room type & totals */
 .room-type {
   display: flex;
   gap: 10px;
@@ -129,18 +129,68 @@ main {
   font-weight: 700;
   font-size: 1.02rem;
 }
-
-.headline-note {
+/* Tiny note below the page headline */
+.headline-note{
   margin: 6px 0 0;
-  font-size: 12px;               
+  font-size: 12px;
   line-height: 1.2;
-  color: rgba(255, 255, 255, 0.85);  
+  opacity: 0.9;
 }
 
+/* Info blocks inside package details */
+.info-section{
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px dashed #cfe0ff;
+}
+.info-section h4{
+  margin: 0 0 6px;
+  font-size: 16px;
+  color: #0b3d91;
+}
+.info-list{
+  margin: 0;
+  padding-left: 18px;
+  color: #223;
+}
+.info-list li{
+  margin: 2px 0;
+}
 
-.room-type-note {
+/* Room types & rates table */
+.rates{
+  margin-top: 12px;
+}
+.rates h4{
+  margin: 0 0 6px;
+  font-size: 16px;
+  color: #0b3d91;
+}
+.rate-table{
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border: 1px solid #e2efff;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.rate-table th, .rate-table td{
+  padding: 8px 10px;
+  border-bottom: 1px solid #e9f4ff;
+  text-align: left;
+}
+.rate-table th{ background: #eef6ff; color: #27415e; }
+.rate-table tr:last-child td{ border-bottom: 0; }
+
+.tiny-note{
   margin-top: 6px;
-  font-size: 12px;               
-  color: #555;
+  font-size: 12px;
+  color: #556;
 }
+.pkg-title { text-align:center; margin:10px 0 6px; }
+.pkg-name { font-weight:800; font-size:18px; color:#0b3d91; }
+.pkg-desc { margin-top:4px; color:#334; }
+.pkg-meta { margin-top:6px; font-size:12px; color:#666; }
 
+.info-section h4 { display:flex; gap:8px; align-items:baseline; }
+.cost-line { color:#0b3d91; font-weight:800; font-size:14px; }
