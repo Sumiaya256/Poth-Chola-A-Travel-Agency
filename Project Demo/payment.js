@@ -96,42 +96,46 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Process payment and move to confirmed bookings
     function processPayment(paymentMethod, transactionId) {
-        const user = JSON.parse(localStorage.getItem("currentUser") || "null");
-        if (!user || !user.email) {
-            alert("Error: User not logged in. Please sign in.");
-            window.location.href = "user.html?mode=signin";
-            return;
-        }
-
-        const bookingData = JSON.parse(localStorage.getItem("pendingBooking") || "null");
-        if (!bookingData) {
-            alert("Error: No pending booking found to process.");
-            window.location.href = "travelPackages.html";
-            return;
-        }
-
-        alert(`Payment of ${bookingData.totals.grand} BDT confirmed via ${paymentMethod} (TRX ID: ${transactionId || 'N/A'}). Your booking is successful!`);
-
-        // Save booking into completed bookings under the user
-        let allCompletedBookings = JSON.parse(localStorage.getItem("completedBookings") || "{}");
-        let userBookings = allCompletedBookings[user.email] || [];
-
-        const completedBooking = {
-            ...bookingData,
-            paymentMethod: paymentMethod,
-            transactionId: transactionId,
-            status: "Confirmed",
-            bookingTime: Date.now()
-        };
-
-        userBookings.push(completedBooking);
-        allCompletedBookings[user.email] = userBookings;
-        localStorage.setItem("completedBookings", JSON.stringify(allCompletedBookings));
-
-        // Clear pending booking
-        localStorage.removeItem("pendingBooking");
-
-        // Redirect to userProfile page
-        window.location.href = "userProfile.html?tab=bookings";
+    const user = JSON.parse(localStorage.getItem("currentUser") || "null");
+    if (!user || !user.email) {
+        alert("Error: User not logged in. Please sign in.");
+        window.location.href = "user.html?mode=signin";
+        return;
     }
+
+    const bookingData = JSON.parse(localStorage.getItem("pendingBooking") || "null");
+    if (!bookingData) {
+        alert("Error: No pending booking found to process.");
+        window.location.href = "travelPackages.html";
+        return;
+    }
+
+    alert(`Payment of ${bookingData.totals.grand} BDT confirmed via ${paymentMethod} (TRX ID: ${transactionId || 'N/A'}).
+         Your booking is successful!`);
+
+    // Save into confirmedBookings (for history in profile)
+    let confirmed = JSON.parse(localStorage.getItem("confirmedBookings") || "[]");
+
+    const completedBooking = {
+        ...bookingData,
+        email: user.email,
+        paymentMethod,
+        transactionId,
+        status: "Confirmed",
+        time: Date.now()
+    };
+
+    confirmed.push(completedBooking);
+    localStorage.setItem("confirmedBookings", JSON.stringify(confirmed));
+
+    // Clear pending booking
+    localStorage.removeItem("pendingBooking");
+
+    // Save last booking for memo display
+    localStorage.setItem("lastConfirmedBooking", JSON.stringify(completedBooking));
+
+    // Redirect to confirmation page (invoice/memo)
+    window.location.href = "confirmation.html";
+}
+
 });
