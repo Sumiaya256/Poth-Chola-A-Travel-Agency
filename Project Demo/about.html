@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>About – Pothchola</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .about-hero {
+      background: #e0f0ff;
+      border-bottom: 2px solid #003580;
+      padding: 28px 20px;
+      text-align: center;
+    }
+    .about-hero h1 { color:#003580; margin-bottom:6px }
+    .about-hero p { color:#333 }
+    .about-wrap { max-width: 1000px; margin: 20px auto; padding: 0 16px; }
+    .about-card {
+      background:#fff; border:1px solid #dbe7ff; border-radius:12px;
+      padding:16px; margin-bottom:14px; box-shadow:0 4px 14px rgba(0,0,0,.06);
+    }
+    .about-card h2 { color:#0b3d91; margin-bottom:8px; font-size:20px }
+    .about-card ul { margin:8px 0 0 18px; line-height:1.6 }
+    .about-note { font-size:12px; color:#555; margin-top:6px }
+    .about-actions { margin-top:12px; display:flex; gap:10px; flex-wrap:wrap }
+    .about-actions a {
+      display:inline-block; padding:8px 12px; border-radius:8px; text-decoration:none;
+      border:1px solid #003580; color:#003580; background:#fff; font-weight:700;
+    }
+    .about-actions a:hover { background:#e9f3ff; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">Explore Bangladesh</div>
+    <nav>
+      <ul>
+        <li><a href="about.html">About</a></li>
+        <li><a href="travelPackages.html">Packages</a></li>
+        <li><a id="reviewsNav" href="revieww.html">Reviews</a></li>
+        <li><a href="faqs.html">FAQs</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="about-hero">
+    <h1>About Pothchola</h1>
+    <p>Your simple, safe and smart way to explore Bangladesh.</p>
+  </section>
+
+  <main class="about-wrap">
+    <section class="about-card">
+      <h2>What is Pothchola?</h2>
+      <p>Pothchola is a travel web app that helps you discover and book curated trips across Bangladesh—like Cox’s Bazar, Sylhet, Bandarban, Rangamati, and Tanguar Haor. We keep things clear and transparent so you can focus on the journey.</p>
+    </section>
+
+    <section class="about-card">
+      <h2>How our packages are designed</h2>
+      <ul>
+        <li><strong>Trip length:</strong> Designed for <em>3 calendar days</em> with <em>2 overnight stays</em>.</li>
+        <li><strong>Package tiers:</strong> Basic, Standard, Premium (amenities and availability vary).</li>
+        <li><strong>Pricing breakdown:</strong> Transport (≈ 700–2000 Tk) + Accommodation (Single base ≈ 2500–6000 Tk; Double ×1.5; Family ×2.25) + Full board (≈ 3000–9000 Tk).</li>
+        <li><strong>Room types:</strong> Single (1 person), Double (2 persons), Family (3–4 persons max).</li>
+      </ul>
+      <p class="about-note">(These ranges reflect typical inclusions; actual totals are shown live on each package.)</p>
+    </section>
+
+    <section class="about-card">
+      <h2>Services we provide</h2>
+      <ul>
+        <li>End-to-end booking: transport, accommodation, and full board.</li>
+        <li>Curated stays and activities matched to each destination.</li>
+        <li>Real-time package availability and cost calculation.</li>
+        <li>Local guidance and tips for a stress-free trip.</li>
+      </ul>
+    </section>
+
+    <section class="about-card">
+      <h2>Safety & Security</h2>
+      <ul>
+        <li>Verified service providers and partner accommodations.</li>
+        <li>Clear pricing with no hidden fees.</li>
+        <li>Secure data handling for your account details.</li>
+        <li>Instant booking confirmation saved in your profile.</li>
+        <li id="adminNavItem" style="display:none;"><a href="admin.html">Admin</a></li>
+      </ul>
+      <div class="about-actions">
+        <a href="travelPackages.html">Browse Packages</a>
+        <a href="user.html?mode=signup">Create Account</a>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    
+    (function(){
+      function cu(){ try{return JSON.parse(localStorage.getItem('currentUser'))}catch(e){return null} }
+      const a = document.getElementById('reviewsNav'); const u = cu();
+      if (a) a.href = u && u.fullName ? 'revieww.html?name='+encodeURIComponent(u.fullName) : 'revieww.html';
+    })();
+  </script>
+  <script>
+  (function(){
+    const ADMIN_EMAIL = "admin@pothchola.local"; 
+    try {
+      const u = JSON.parse(localStorage.getItem("currentUser"));
+      if (u && u.email && u.email.toLowerCase() === ADMIN_EMAIL.toLowerCase()) {
+        const li = document.getElementById("adminNavItem");
+        if (li) li.style.display = "list-item";
+      }
+    } catch(e) {}
+  })();
+</script>
+
+</body>
+</html>
