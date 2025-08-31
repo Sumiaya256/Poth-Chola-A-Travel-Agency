@@ -2,85 +2,195 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Booking - Pothchola</title>
+  <title>Booking – Pothchola</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    body { font-family: Arial, sans-serif; padding: 20px; background: #f5f5f5; }
+    body { font-family: Arial, sans-serif; padding: 20px; background: #f5f7ff; }
     .booking-card {
-      background: #fff; padding: 20px; max-width: 500px;
-      margin: auto; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      background: #fff; padding: 20px; max-width: 720px;
+      margin: auto; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+      border: 1px solid #dbe7ff;
     }
-    h2 { margin-bottom: 10px; }
-    .cost { font-size: 18px; font-weight: bold; margin-top: 10px; }
-    input[type="number"] {
-      width: 80px; padding: 8px; margin-top: 5px;
+    h2 { margin: 0 0 6px; color:#0b3d91 }
+    .meta { color:#4a4a4a; margin: 0 0 12px; }
+    .grid { display:grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    @media (max-width:680px){ .grid{ grid-template-columns:1fr } }
+    label { font-weight:700; color:#27415e }
+    input[type="number"], select {
+      width: 100%; padding: 10px; border:1px solid #cfe0ff; border-radius:10px; outline:none;
     }
+    input[type="number"]:focus, select:focus { border-color:#0b63ce; box-shadow:0 0 0 3px rgba(11,99,206,.15) }
+    .note { font-size: 12px; color:#556; margin-top: 4px; }
+    .totals { margin-top:12px; background:#f7fbff; border:1px solid #e2efff; border-radius:10px; padding:12px; }
+    .totals .row { display:flex; justify-content:space-between; margin:4px 0; color:#223; }
+    .totals .row strong { color:#0b3d91 }
+    .error { margin-top:10px; color:#b00020; font-weight:700; display:none; }
+    .actions { margin-top: 14px; display:flex; gap:10px; flex-wrap: wrap; }
     .btn {
-      display: inline-block; background: #28a745; color: #fff; padding: 10px 15px;
-      text-decoration: none; border-radius: 5px; margin-top: 15px; cursor: pointer;
+      display:inline-block; background:#0b63ce; color:#fff; padding:10px 14px; border-radius:10px; text-decoration:none; border:none; cursor:pointer;
+      font-weight:700;
     }
+    .btn.secondary { background:#eef6ff; color:#0b63ce; border:1px solid #cfe0ff; }
+    .btn:disabled { opacity: .6; cursor: not-allowed; }
+    .img { width:100%; border-radius:10px; margin: 10px 0; object-fit:cover; max-height:200px }
   </style>
 </head>
 <body>
   <div class="booking-card">
-    <h2 id="package-title">Loading...</h2>
-    <p id="package-details"></p>
+    <h2 id="package-title">Loading…</h2>
+    <p class="meta" id="package-details"></p>
+    <img id="pkgImg" class="img" alt="" />
 
-    <label for="people">Number of People:</label><br>
-    <input type="number" id="people" min="1" value="1"><br>
+    <!-- Inputs -->
+    <div class="grid">
+      <div>
+        <label for="people">Number of Persons</label>
+        <input type="number" id="people" min="1" value="1" />
+      </div>
 
-    <div class="cost" id="totalCost">Total: —</div>
+      <div>
+        <label>Single Rooms (1 person/room)</label>
+        <input type="number" id="singleRooms" min="0" value="0" />
+      </div>
 
-    <button id="confirmBooking" class="btn">Proceed to Payment</button>
+      <div>
+        <label>Double Rooms (2 persons/room)</label>
+        <input type="number" id="doubleRooms" min="0" value="0" />
+      </div>
+
+      <div>
+        <label>Family Rooms (3–4 persons/room)</label>
+        <input type="number" id="familyRooms" min="0" value="0" />
+        <div class="note">Family room capacity counted as 3–4 per room. Total persons must fit between min and max capacity.</div>
+      </div>
+    </div>
+
+    <!-- Totals -->
+    <div class="totals">
+      <div class="row"><span>Transport (per person × people)</span><strong id="tTransport">—</strong></div>
+      <div class="row"><span>Full Board (per person × people)</span><strong id="tFullBoard">—</strong></div>
+      <div class="row"><span>Accommodation (rooms & multipliers)</span><strong id="tAccommodation">—</strong></div>
+      <div class="row" style="border-top:1px dashed #cfe0ff; padding-top:6px;"><span><strong>Grand Total</strong></span><strong id="tGrand">—</strong></div>
+    </div>
+
+    <div id="err" class="error">Error</div>
+
+    <div class="actions">
+      <a class="btn secondary" href="travelPackages.html">Back to Packages</a>
+      <button id="confirmBooking" class="btn" disabled>Proceed to Payment</button>
+    </div>
   </div>
 
   <script>
-    const data = JSON.parse(localStorage.getItem("pendingBooking") || "{}");
+    const data = JSON.parse(localStorage.getItem("pendingBooking") || "null");
     const titleEl = document.getElementById("package-title");
     const detailsEl = document.getElementById("package-details");
-    const peopleInput = document.getElementById("people");
-    const totalCostEl = document.getElementById("totalCost");
+    const imgEl = document.getElementById("pkgImg");
 
-    if (!data.packageID) {
+    const peopleEl = document.getElementById("people");
+    const singleEl = document.getElementById("singleRooms");
+    const doubleEl = document.getElementById("doubleRooms");
+    const familyEl = document.getElementById("familyRooms");
+
+    const tTransport = document.getElementById("tTransport");
+    const tFullBoard = document.getElementById("tFullBoard");
+    const tAccommodation = document.getElementById("tAccommodation");
+    const tGrand = document.getElementById("tGrand");
+    const errEl = document.getElementById("err");
+    const confirmBtn = document.getElementById("confirmBooking");
+
+    
+    const M = { single: 1, double: 1.5, family: 2.25 };
+
+    if (!data || !data.packageID) {
       titleEl.textContent = "No package selected!";
+      errEl.style.display = "block";
+      errEl.textContent = "Please go back and choose a package.";
+      confirmBtn.disabled = true;
     } else {
-      titleEl.textContent = `${data.location} - ${data.packageName}`;
-      detailsEl.textContent = `Base Price: ${data.baseTotal} Tk (includes transport, room, meals)`;
-      updateTotal();
+      titleEl.textContent = `${data.location} — ${data.packageName}`;
+      detailsEl.textContent = `Per person: Transport ${data.transportPerPerson} Tk, Full board ${data.fullBoardPerPerson} Tk • Per room: Accommodation (Single base) ${data.accommodationPerRoomSingleBase} Tk`;
+      if (data.image) { imgEl.src = data.image; imgEl.alt = `${data.location} - ${data.packageName}`; }
+      updateTotals();
     }
 
-    function updateTotal() {
-      const people = parseInt(peopleInput.value) || 1;
-      const total = data.baseTotal * people;
-      totalCostEl.textContent = `Total: ${total} Tk`;
-    }
+    function updateTotals() {
+      const people = clampInt(peopleEl.value, 1);
+      const singles = clampInt(singleEl.value, 0);
+      const doubles = clampInt(doubleEl.value, 0);
+      const familys = clampInt(familyEl.value, 0);
 
-    peopleInput.addEventListener("input", updateTotal);
+      // capacity rules
+      const minCap = singles * 1 + doubles * 2 + familys * 3;
+      const maxCap = singles * 1 + doubles * 2 + familys * 4;
 
-    document.getElementById("confirmBooking").addEventListener("click", () => {
-      const user = JSON.parse(localStorage.getItem("currentUser") || "null");
-      if (!user || !user.email) {
-        alert("You need to sign in before booking.");
-        window.location.href = "user.html?mode=signin";
+      // totals
+      const transportTotal = data.transportPerPerson * people;
+      const fullBoardTotal = data.fullBoardPerPerson * people;
+      const accBase = data.accommodationPerRoomSingleBase;
+      const accTotal = Math.round(singles * accBase * M.single + doubles * accBase * M.double + familys * accBase * M.family);
+      const grand = transportTotal + fullBoardTotal + accTotal;
+
+      // update UI
+      tTransport.textContent = `${transportTotal} Tk`;
+      tFullBoard.textContent = `${fullBoardTotal} Tk`;
+      tAccommodation.textContent = `${accTotal} Tk`;
+      tGrand.textContent = `${grand} Tk`;
+
+      // validation
+      const roomsSelected = (singles + doubles + familys) > 0;
+      const okRange = people >= minCap && people <= maxCap;
+      if (!roomsSelected) {
+        showError("Please select at least one room.");
         return;
       }
-      
-      const people = parseInt(peopleInput.value);
-      const totalCost = data.baseTotal * people;
+      if (!okRange) {
+        showError(`Persons (${people}) must be between min capacity ${minCap} and max capacity ${maxCap} for selected rooms.`);
+        return;
+      }
+      hideError();
+      confirmBtn.disabled = false;
 
-      
-      const updatedBookingData = {
+      // attach final payload
+      confirmBtn.onclick = () => {
+        const user = JSON.parse(localStorage.getItem("currentUser") || "null");
+        if (!user || !user.email) {
+          alert("You need to sign in before booking.");
+          window.location.href = "user.html?mode=signin";
+          return;
+        }
+        const payload = {
           ...data,
-          people: people,
-          totalCost: totalCost
+          people,
+          rooms: { single: singles, double: doubles, family: familys },
+          totals: {
+            transport: transportTotal,
+            fullBoard: fullBoardTotal,
+            accommodation: accTotal,
+            grand
+          },
+          time: Date.now()
+        };
+        localStorage.setItem("pendingBooking", JSON.stringify(payload));
+        window.location.href = "payment.html";
       };
+    }
 
-      localStorage.setItem("pendingBooking", JSON.stringify(updatedBookingData));
+    function clampInt(v, min) {
+      const n = parseInt(v, 10);
+      return isNaN(n) ? min : Math.max(min, n);
+    }
+    function showError(msg) {
+      errEl.style.display = "block";
+      errEl.textContent = msg;
+      confirmBtn.disabled = true;
+    }
+    function hideError() {
+      errEl.style.display = "none";
+      errEl.textContent = "";
+    }
 
-      
-      window.location.href = "payment.html";
-    });
+    [peopleEl, singleEl, doubleEl, familyEl].forEach(el => el.addEventListener("input", updateTotals));
   </script>
 </body>
-
 </html>
