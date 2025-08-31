@@ -1,26 +1,29 @@
 const reviewForm = document.getElementById('reviewForm');
 const reviewsList = document.getElementById('reviewsList');
 const avgRating = document.getElementById('avgRating');
+const nameInput = document.getElementById("userName");
+const textInput = document.getElementById("reviewText");
 
-(function prefillNameFromURL(){
+
+(function prefillName() {
   const params = new URLSearchParams(window.location.search);
   const preName = params.get("name");
-  if (preName) {
-    const nameInput = document.getElementById("userName");
-    if (nameInput) {
-      nameInput.value = preName;
-      
-    }
+  const currentUser = JSON.parse(localStorage.getItem("currentUser") || "null");
+
+  if (currentUser?.name) {
+    nameInput.value = currentUser.name;
+    nameInput.readOnly = true;
+    nameInput.style.background = "#f5f7ff";
+  } else if (preName) {
+    nameInput.value = preName;
   }
 })();
 
 
+let reviews = JSON.parse(localStorage.getItem('reviews')) || [];
 
-let reviews = JSON.parse(localStorage.getItem('reviews')) || [
-  { rating: 5, name: 'Sumiaya Sharif', text: 'Amazing place! Truly peaceful and scenic.', date: '2025-08-21 10:45 AM' },
-  { rating: 4, name: 'Rahat Ahmed', text: 'Beautiful experience, but a bit crowded.', date: '2025-08-20 3:20 PM' },
-  { rating: 3, name: 'Nadia Khan', text: 'Good, but could improve facilities.', date: '2025-08-19 1:10 PM' }
-];
+
+let editingIndex = null;
 
 function updateAverageRating() {
   if (reviews.length === 0) {
@@ -34,7 +37,9 @@ function updateAverageRating() {
 
 function displayReviews() {
   reviewsList.innerHTML = '<h2>User Reviews</h2>';
-  reviews.slice().reverse().forEach(r => {
+  const currentUser = JSON.parse(localStorage.getItem("currentUser") || "null");
+
+  reviews.slice().reverse().forEach((r, idx) => {
     const div = document.createElement('div');
     div.className = 'review';
     div.innerHTML = `
@@ -43,15 +48,53 @@ function displayReviews() {
       <div class="date">${r.date}</div>
       <div class="text">${r.text}</div>
     `;
+
+    
+    if (currentUser && currentUser.email && r.email === currentUser.email) {
+      const btnContainer = document.createElement("div");
+      btnContainer.style.marginTop = "10px";
+
+      const editBtn = document.createElement("button");
+      editBtn.textContent = "Edit";
+      editBtn.style.marginRight = "8px";
+      editBtn.onclick = () => startEditReview(r, reviews.length - 1 - idx); 
+
+      const delBtn = document.createElement("button");
+      delBtn.textContent = "Delete";
+      delBtn.onclick = () => deleteReview(reviews.length - 1 - idx);
+
+      btnContainer.appendChild(editBtn);
+      btnContainer.appendChild(delBtn);
+      div.appendChild(btnContainer);
+    }
+
     reviewsList.appendChild(div);
   });
 }
 
+function startEditReview(review, index) {
+  editingIndex = index;
+  document.querySelector(`input[name="rating"][value="${review.rating}"]`).checked = true;
+  nameInput.value = review.name;
+  textInput.value = review.text;
+  reviewForm.querySelector("button[type='submit']").textContent = "Update Review";
+}
+
+function deleteReview(index) {
+  if (!confirm("Are you sure you want to delete your review?")) return;
+  reviews.splice(index, 1);
+  localStorage.setItem("reviews", JSON.stringify(reviews));
+  displayReviews();
+  updateAverageRating();
+}
+
+// Handle submit
 reviewForm.addEventListener('submit', function(e) {
   e.preventDefault();
   const rating = parseInt(document.querySelector('input[name="rating"]:checked')?.value);
-  const name = document.getElementById('userName').value.trim() || 'Anonymous';
-  const text = document.getElementById('reviewText').value.trim();
+  const name = nameInput.value.trim() || 'Anonymous';
+  const text = textInput.value.trim();
+  const currentUser = JSON.parse(localStorage.getItem("currentUser") || "null");
 
   if (!rating || !text) {
     alert('Please provide a rating and a review text.');
@@ -59,7 +102,36 @@ reviewForm.addEventListener('submit', function(e) {
   }
 
   const date = new Date().toLocaleString();
-  reviews.push({ rating, name, text, date });
+
+  if (editingIndex !== null) {
+    // Update existing review
+    reviews[editingIndex] = {
+      ...reviews[editingIndex],
+      rating,
+      name,
+      text,
+      date
+    };
+    editingIndex = null;
+    reviewForm.querySelector("button[type='submit']").textContent = "Submit Review";
+  } else {
+    // Check if user already has a review
+    if (currentUser?.email) {
+      const existingIndex = reviews.findIndex(r => r.email === currentUser.email);
+      if (existingIndex !== -1) {
+        alert("You already have a review. Please edit it instead.");
+        return;
+      }
+    }
+
+    reviews.push({
+      rating,
+      name,
+      text,
+      date,
+      email: currentUser?.email || null
+    });
+  }
 
   
   localStorage.setItem('reviews', JSON.stringify(reviews));
@@ -69,6 +141,6 @@ reviewForm.addEventListener('submit', function(e) {
   reviewForm.reset();
 });
 
+
 displayReviews();
 updateAverageRating();
-
