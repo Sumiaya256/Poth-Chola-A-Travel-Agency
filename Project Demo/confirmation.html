@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Booking Confirmation - Pothchola</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body { font-family: Arial, sans-serif; background:#f5f7ff; padding:20px; }
+    .confirmation-card {
+      background:#fff; padding:20px; max-width:720px; margin:auto;
+      border-radius:12px; box-shadow:0 8px 20px rgba(0,0,0,0.06);
+      border:1px solid #dbe7ff;
+    }
+    h2 { color:#0b3d91; margin-top:0 }
+    .success { color:green; font-weight:bold; margin-bottom:12px; }
+    .details p { margin:6px 0; }
+    .totals { margin-top:15px; padding:12px; background:#f7fbff; border-radius:10px; border:1px solid #cfe0ff; }
+    .totals .row { display:flex; justify-content:space-between; margin:4px 0; }
+    .actions { margin-top:20px; display:flex; gap:10px; flex-wrap:wrap; }
+    .btn { background:#0b63ce; color:#fff; padding:10px 14px; border:none; border-radius:10px; cursor:pointer; text-decoration:none; font-weight:bold; }
+    .btn.secondary { background:#eef6ff; color:#0b63ce; border:1px solid #cfe0ff; }
+  </style>
+</head>
+<body>
+  <div class="confirmation-card">
+    <h2>Booking Confirmed ✅</h2>
+    <p class="success" id="confirmMessage">Your booking has been confirmed!</p>
+
+    <div class="details" id="details"></div>
+    <div class="totals" id="totals"></div>
+
+    <div class="actions">
+      <button class="btn" onclick="window.print()">Print Memo</button>
+      <a class="btn secondary" href="index.html">Back to Home</a>
+    </div>
+  </div>
+
+  <script src="confirmation.js"></script>
+</body>
+</html>

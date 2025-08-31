@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Partnership – Explore Bangladesh</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="partners.css" />
+</head>
+<body>
+
+<header>
+  <div class="logo">Explore Bangladesh</div>
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="travelPackages.html">Packages</a></li>
+      <li><a href="revieww.html">Reviews</a></li>
+      <li><a href="faqs.html">FAQs</a></li>
+      <li><a class="active" href="partners.html">Partnership</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main class="admin-wrap">
+
+  <!-- Partnership Application Form -->
+  <section id="applyForm" class="card fancy-form">
+  <h2 class="form-title">🚀 Apply for Partnership</h2>
+  <p class="small">Fill in your details below to join as a partner (Hotel, Transport, Food, etc.).</p>
+
+  <form id="applyPartnerForm" class="grid fancy-grid">
+    
+    <div class="form-group">
+      <label for="a_org"><i class="fas fa-building"></i> Organization Name</label>
+      <input id="a_org" type="text" placeholder="Your company / hotel / service name" required />
+    </div>
+
+    <div class="form-group">
+      <label for="a_type"><i class="fas fa-tags"></i> Type</label>
+      <select id="a_type" required>
+        <option value="">Select type</option>
+        <option value="accommodation">🏨 Accommodation</option>
+        <option value="transport">🚌 Transport</option>
+        <option value="food">🍽️ Food & Drink</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="a_location"><i class="fas fa-map-marker-alt"></i> Location / Coverage Area</label>
+      <input id="a_location" type="text" placeholder="e.g., Cox's Bazar, Nationwide" />
+    </div>
+
+    <div class="form-group">
+      <label for="a_contact"><i class="fas fa-user"></i> Contact Person</label>
+      <input id="a_contact" type="text" placeholder="e.g., John Doe" required />
+    </div>
+
+    <div class="form-group">
+      <label for="a_email"><i class="fas fa-envelope"></i> Email</label>
+      <input id="a_email" type="email" placeholder="e.g., partner@example.com" required />
+    </div>
+
+    <div class="form-group">
+      <label for="a_phone"><i class="fas fa-phone"></i> Phone</label>
+      <input id="a_phone" type="tel" placeholder="e.g., +8801XXXXXXXXX" required />
+    </div>
+
+    <div class="form-group full-width">
+      <label for="a_services"><i class="fas fa-concierge-bell"></i> Services (comma separated)</label>
+      <input id="a_services" type="text" placeholder="e.g., Deluxe rooms, Airport pickup" />
+    </div>
+
+    <div class="form-group full-width">
+      <label for="a_desc"><i class="fas fa-info-circle"></i> Short Description</label>
+      <textarea id="a_desc" rows="3" placeholder="Tell us about your service"></textarea>
+    </div>
+
+    <div class="form-actions">
+      <button class="btn primary" type="submit">✨ Submit Application</button>
+      <span id="applyMsg" class="small"></span>
+    </div>
+  </form>
+</section>
+
+
+  <!-- Partner Dashboard (for approved partners) -->
+  <section id="dashboard" class="card hidden">
+    <div class="row space">
+      <h2>Your Partner Info</h2>
+      <span class="pill badge" id="partnerStatusPill">Status</span>
+    </div>
+    <form id="partnerForm" class="grid">
+      <label>Organization Name
+        <input id="p_org" type="text" />
+      </label>
+      <label>Type
+        <select id="p_type">
+          <option value="accommodation">Accommodation</option>
+          <option value="transport">Transport</option>
+          <option value="food">Food & Drink</option>
+        </select>
+      </label>
+      <label>Location / Coverage Area
+        <input id="p_location" type="text" />
+      </label>
+      <label>Contact Person
+        <input id="p_name" type="text" />
+      </label>
+      <label>Email (read-only)
+        <input id="p_email" type="email" readonly />
+      </label>
+      <label>Phone
+        <input id="p_phone" type="tel" />
+      </label>
+      <label>Services (comma separated)
+        <input id="p_services" type="text" />
+      </label>
+      <label>Description
+        <textarea id="p_desc" rows="3"></textarea>
+      </label>
+      <label class="row" style="align-items:center; gap:8px;">
+        <input id="p_included" type="checkbox" /> Included in Packages
+      </label>
+      <div class="row">
+        <button class="btn primary" type="submit">Save Changes</button>
+        <span id="partnerMsg" class="small"></span>
+      </div>
+    </form>
+  </section>
+
+</main>
+
+<footer>
+  <p>© 2025 Explore Bangladesh. All rights reserved.</p>
+</footer>
+
+<script src="partners.js"></script>
+</body>
+</html>

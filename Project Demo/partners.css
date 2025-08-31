@@ -1,0 +1,98 @@
+.partners-hero{background:#e9f4ff;border-bottom:2px solid #0b63ce;padding:24px 16px;text-align:center}
+.partners-hero h1{color:#0b63ce;margin-bottom:4px}
+.partners-hero .hero-actions{display:flex;gap:8px;justify-content:center;margin-top:10px;flex-wrap:wrap}
+.partners-wrap{max-width:1100px;margin:18px auto;padding:0 16px}
+.card{background:#fff;border:1px solid #dbe7ff;border-radius:12px;padding:16px;box-shadow:0 4px 14px rgba(0,0,0,.06);margin-bottom:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.row.space{justify-content:space-between;align-items:center}
+input,select,textarea{width:100%;padding:8px 10px;border:1px solid #dbe7ff;border-radius:8px}
+.btn{padding:8px 12px;border:none;border-radius:10px;cursor:pointer;font-weight:700}
+.btn.primary{background:#0b63ce;color:#fff}
+.btn.ghost{background:#eef6ff;color:#0b63ce;border:1px solid #cfe0ff}
+.pill.badge{background:#eef6ff;color:#0b63ce;border:1px solid #cfe0ff;padding:4px 8px;border-radius:999px;font-size:12px;font-weight:700}
+.small{font-size:12px;color:#556}
+.partner-card{border:1px solid #e7f0ff;border-radius:10px;padding:12px}
+.partner-card h4{margin:0 0 6px 0;color:#0b3d91}
+.partner-meta{font-size:12px;color:#466}
+.hidden{display:none}
+.hint{display:block;margin-top:8px;color:#466;font-size:12px}
+.fancy-form {
+  padding: 30px;
+  border-radius: 14px;
+  background: #f9fcff;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+
+.form-title {
+  font-size: 22px;
+  margin-bottom: 15px;
+  color: #003580;
+  text-align: center;
+}
+
+.fancy-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 18px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #27415e;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 10px 12px;
+  border: 1px solid #ccdfff;
+  border-radius: 10px;
+  font-size: 15px;
+  background: #fff;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: #0b63ce;
+  box-shadow: 0 0 0 3px rgba(11, 99, 206, 0.2);
+  outline: none;
+}
+
+.full-width {
+  grid-column: span 2;
+}
+
+.form-actions {
+  grid-column: span 2;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.btn.primary {
+  padding: 10px 16px;
+  border-radius: 8px;
+  background: #0b63ce;
+  color: white;
+  font-weight: 600;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.btn.primary:hover {
+  background: #084a9a;
+  transform: translateY(-1px);
+}
