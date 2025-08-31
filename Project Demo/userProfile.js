@@ -1,4 +1,4 @@
-// ---------- LocalStorage helpers ----------
+
 function getCurrentUser() {
   return JSON.parse(localStorage.getItem("currentUser"));
 }
@@ -16,7 +16,7 @@ function clearCurrentUser() {
 }
 
 function getBookings() {
-  // [{id, packageID, email, time}]
+  
   return JSON.parse(localStorage.getItem("bookings")) || [];
 }
 function saveBookings(arr) {
@@ -24,16 +24,15 @@ function saveBookings(arr) {
 }
 
 function getAllReviews() {
-  // Your reviews page uses this key
-  // [{rating, name, text, date, ...}]
+ 
   return JSON.parse(localStorage.getItem("reviews")) || [];
 }
 
-// ---------- DOM ----------
+
 const logoutBtn = document.getElementById("logoutBtn");
 const guardMessage = document.getElementById("guardMessage");
 
-// Profile form
+
 const profileForm = document.getElementById("profileForm");
 const pfName = document.getElementById("pfName");
 const pfEmail = document.getElementById("pfEmail");
@@ -45,12 +44,12 @@ const saveStatus = document.getElementById("saveStatus");
 const bookingsList = document.getElementById("bookingsList");
 const noBookings = document.getElementById("noBookings");
 
-// My reviews preview
+
 const myReviewsList = document.getElementById("myReviewsList");
 const noMyReviews = document.getElementById("noMyReviews");
 const openReviewsBtn = document.getElementById("openReviewsBtn");
 
-// ---------- Guard (require login) ----------
+
 let currentUser = getCurrentUser();
 if (!currentUser) {
   guardMessage.style.display = "block";
@@ -58,7 +57,7 @@ if (!currentUser) {
   setTimeout(() => (window.location.href = "user.html?mode=signin"), 900);
 }
 
-// ---------- Fill profile form ----------
+
 function hydrateProfile() {
   pfName.value = currentUser.fullName || "";
   pfEmail.value = currentUser.email || "";
@@ -67,7 +66,7 @@ function hydrateProfile() {
 }
 hydrateProfile();
 
-// ---------- Save profile changes ----------
+
 profileForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
@@ -97,7 +96,7 @@ profileForm.addEventListener("submit", (e) => {
     saveUsers(users);
   }
 
-  // Update current user session
+  
   currentUser.fullName = newName;
   currentUser.email = newEmail;
   currentUser.mobileNumber = newMobile;
@@ -112,13 +111,13 @@ profileForm.addEventListener("submit", (e) => {
   renderMyReviews();
 });
 
-// ---------- Package helpers ----------
+
 function packageById(id) {
-  // travelPackages is available from travelPackages.js
+  
   return (window.travelPackages || []).find(p => p.packageID === id);
 }
 
-// ---------- Render bookings ----------
+
 function renderBookings() {
   const mine = getBookings().filter(b => b.email === currentUser.email);
   if (mine.length === 0) {
@@ -145,7 +144,7 @@ function renderBookings() {
 }
 renderBookings();
 
-// ---------- Render my reviews (read-only) ----------
+
 function renderMyReviews() {
   const all = getAllReviews();
   const myName = (currentUser.fullName || "").trim().toLowerCase();
